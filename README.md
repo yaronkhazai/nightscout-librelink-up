@@ -1,7 +1,8 @@
 # Nightscout LibreLink Up Uploader/Sidecar
 Simple Script written in JavaScript (Node) that uploads CGM readings from LibreLink Up to Nightscout. The upload happens every minute and should work with at least Freestyle Libre 2 and Libre 3 CGM sensors.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yaronkhazai/nightscout-librelink-up)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/timoschlueter/nightscout-librelink-up)
+[![Deploy test version](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yaronkhazai/nightscout-librelink-up)
 
 ## Configuration
 The script takes the following environment variables
@@ -21,6 +22,7 @@ There are different options for using this script.
 ### Variant 1: On Heroku
 
 - Click [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/timoschlueter/nightscout-librelink-up)
+- click to deploy test version [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yaronkhazai/nightscout-librelink-up)
 - Login to Heroku if not already happened
 - Provide proper values for the `environment variables`
 - **Important: make sure that yor Nightscout API token is hashed with SHA1**
