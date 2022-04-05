@@ -25,6 +25,9 @@ const logger = createLogger({
 const LINK_UP_USERNAME = process.env.LINK_UP_USERNAME;
 const LINK_UP_PASSWORD = process.env.LINK_UP_PASSWORD;
 const LINK_UP_CONNECTION = process.env.LINK_UP_CONNECTION;
+var TRANSFER_AGGREGATED_DATA_ONLY = false;
+if (typeof(process.env.TRANSFER_AGGREGATED_DATA_ONLY) != 'undefined' && process.env.TRANSFER_AGGREGATED_DATA_ONLY!=null && process.env.TRANSFER_AGGREGATED_DATA_ONLY.toLowerCase()=="true")
+    TRANSFER_AGGREGATED_DATA_ONLY = true ;
 
 /**
  * Nightscout API
@@ -182,25 +185,32 @@ async function getLibreLinkUpConnection() {
 }
 
 async function uploadToNightscout(measurementData) {
-    const glucoseMeasurement = measurementData.connection.glucoseMeasurement;
-    const measurementDate = getUtcDateFromString(glucoseMeasurement.FactoryTimestamp);
-    const glucoseMeasurementHistory = measurementData.graphData;
-
     let formattedMeasurements = [];
 
-    // Add the most recent measurement first
-    formattedMeasurements.push({
-        "type": "sgv",
-        "dateString": measurementDate.toISOString(),
-        "date": measurementDate.getTime(),
-        "direction": mapTrendArrow(glucoseMeasurement.TrendArrow),
-        "sgv": glucoseMeasurement.ValueInMgPerDl
-    });
+    if (!TRANSFER_AGGREGATED_DATA_ONLY)
+    {
+        //Try to Add the most recent measurement first
+        const glucoseMeasurement = measurementData.connection.glucoseMeasurement;
+        if (glucoseMeasurement!=null)
+        {
+            const measurementDate = getUtcDateFromString(glucoseMeasurement.FactoryTimestamp);
+        
+            formattedMeasurements.push({
+                "type": "sgv",
+                "dateString": measurementDate.toISOString(),
+                "date": measurementDate.getTime(),
+                "direction": mapTrendArrow(glucoseMeasurement.TrendArrow),
+                "sgv": glucoseMeasurement.ValueInMgPerDl
+            });
+        }
+    }
 
     // Backfill with measurements from the graph data. Note: Nightscout handles duplicates. 
     // We don't have to worry about them here.
+    let glucoseMeasurementHistory = measurementData.graphData;
     glucoseMeasurementHistory.forEach((glucoseMeasurementHistoryEntry) => {
         let measurementDate = getUtcDateFromString(glucoseMeasurementHistoryEntry.FactoryTimestamp);
+        
         formattedMeasurements.push({
             "type": "sgv",
             "dateString": measurementDate.toISOString(),
