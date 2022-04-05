@@ -2,6 +2,8 @@
 Simple Script written in JavaScript (Node) that uploads CGM readings from LibreLink Up to Nightscout. The upload happens every minute and should work with at least Freestyle Libre 2 and Libre 3 CGM sensors.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/timoschlueter/nightscout-librelink-up)
+
+for test version click here:
 [![Deploy test version](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yaronkhazai/nightscout-librelink-up)
 
 ## Configuration
