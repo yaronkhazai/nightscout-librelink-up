@@ -31,6 +31,11 @@
 			"description": "Your Nightscout API token",
 			"value": "",
 			"required": true
+		},
+		"TRANSFER_AGGREGATED_DATA_ONLY": {
+			"description": "upload only 5 minute aggregated data, true/false",
+			"value": "false",
+			"required": true
 		}
 	}
 }
